@@ -1,16 +1,675 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>my first webpage</title>
-    <style>
-        body{
-            background-color: aquamarine;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Anju Official — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0D1B2A;
+      --pearl:  #F5F1EB;
+      --rose:   #C9748F;
+      --gold:   #D4A843;
+      --sage:   #7A9E8E;
+      --smoke:  #E8E2D9;
+      --ink:    #1E2D3D;
+      --muted:  #6B7A8D;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--pearl);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(13,27,42,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(212,168,67,0.18);
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 600; color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+    .nav-brand span { color: #fff; font-style: italic; font-weight: 400; }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.75); font-size: 0.82rem; font-weight: 500;
+      text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 0 5rem;
+      gap: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-circle {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); pointer-events: none;
+    }
+    .hbc1 { width: 500px; height: 500px; background: rgba(201,116,143,0.12); top: -100px; right: -100px; }
+    .hbc2 { width: 350px; height: 350px; background: rgba(212,168,67,0.08); bottom: 0; left: 0; }
+
+    .hero-text { position: relative; z-index: 2; }
+    .hero-eyebrow {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block; width: 2rem; height: 1px; background: var(--gold);
+    }
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      line-height: 1.1; color: #fff; font-weight: 700;
+    }
+    .hero-name .aka {
+      font-style: italic; font-weight: 400;
+      color: var(--rose); display: block; font-size: 0.65em; margin-top: 0.2em;
+    }
+    .hero-tagline {
+      margin-top: 1.4rem; font-size: 1.05rem; font-weight: 300;
+      color: rgba(255,255,255,0.65); line-height: 1.7; max-width: 420px;
+    }
+    .hero-location {
+      margin-top: 1.6rem; display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; color: var(--sage); font-weight: 500;
+    }
+    .hero-location svg { flex-shrink: 0; }
+    .hero-cta-row {
+      margin-top: 2.4rem; display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+    .btn-primary {
+      padding: 0.85rem 2rem; border-radius: 40px; font-size: 0.85rem;
+      font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+      background: var(--rose); color: #fff; border: none; cursor: pointer;
+      text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,116,143,0.4); }
+    .btn-outline {
+      padding: 0.85rem 2rem; border-radius: 40px; font-size: 0.85rem;
+      font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+      background: transparent; color: rgba(255,255,255,0.8);
+      border: 1.5px solid rgba(255,255,255,0.25); cursor: pointer;
+      text-decoration: none; transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── FLOWER PROFILE ── */
+    .hero-visual {
+      display: flex; justify-content: center; align-items: center;
+      position: relative; z-index: 2;
+    }
+    .flower-frame {
+      position: relative; width: 360px; height: 360px;
+    }
+    .flower-svg-wrap {
+      width: 100%; height: 100%;
+      animation: floatY 5s ease-in-out infinite;
+    }
+    @keyframes floatY {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-14px); }
+    }
+    .petal-rotate {
+      transform-origin: 50% 50%;
+      animation: petalSpin 22s linear infinite;
+    }
+    @keyframes petalSpin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .petal-reverse {
+      transform-origin: 50% 50%;
+      animation: petalSpin 30s linear infinite reverse;
+    }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 6rem 5rem; }
+    .section-label {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--rose); margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 700;
+      color: var(--navy); line-height: 1.2;
+    }
+    .section-title.light { color: #fff; }
+    .divider {
+      width: 3.5rem; height: 3px; background: var(--gold);
+      margin: 1.2rem 0 2.5rem; border-radius: 2px;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: #fff;
+      display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; align-items: center;
+    }
+    .about-flower-mini { width: 260px; height: 260px; margin: 0 auto; }
+    .about-flower-mini svg { width: 100%; height: 100%; animation: floatY 6s ease-in-out infinite; }
+    .about-text p {
+      font-size: 1rem; line-height: 1.85; color: #4a5568; margin-bottom: 1.1rem;
+    }
+    .about-text p strong { color: var(--navy); }
+    .info-pills { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.6rem; }
+    .pill {
+      padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.78rem;
+      font-weight: 600; letter-spacing: 0.04em;
+    }
+    .pill-rose { background: rgba(201,116,143,0.12); color: var(--rose); }
+    .pill-gold { background: rgba(212,168,67,0.14); color: #a07c20; }
+    .pill-sage { background: rgba(122,158,142,0.14); color: #4a7a6b; }
+    .pill-navy { background: rgba(13,27,42,0.08); color: var(--navy); }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--pearl); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.6rem; margin-top: 0.5rem;
+    }
+    .skill-card {
+      background: #fff; border-radius: 16px; padding: 2rem 1.6rem;
+      border: 1px solid var(--smoke);
+      transition: transform 0.28s, box-shadow 0.28s, border-color 0.28s;
+      cursor: default;
+    }
+    .skill-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(13,27,42,0.1);
+      border-color: var(--rose);
+    }
+    .skill-icon {
+      width: 3rem; height: 3rem; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.1rem; font-size: 1.4rem;
+    }
+    .si-rose { background: rgba(201,116,143,0.12); }
+    .si-gold { background: rgba(212,168,67,0.14); }
+    .si-sage { background: rgba(122,158,142,0.14); }
+    .si-navy { background: rgba(13,27,42,0.07); }
+    .skill-name {
+      font-weight: 700; font-size: 1rem; color: var(--navy); margin-bottom: 0.5rem;
+    }
+    .skill-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+    .skill-bar-wrap { margin-top: 1.2rem; background: var(--smoke); border-radius: 4px; height: 4px; }
+    .skill-bar { height: 4px; border-radius: 4px; background: var(--rose); transition: width 1s ease; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--navy); }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.6rem; margin-top: 0.5rem;
+    }
+    .service-card {
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 2rem;
+      background: rgba(255,255,255,0.04);
+      transition: background 0.28s, border-color 0.28s;
+    }
+    .service-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(212,168,67,0.4);
+    }
+    .service-num {
+      font-family: 'Playfair Display', serif; font-size: 2.5rem;
+      color: rgba(212,168,67,0.25); font-weight: 700; margin-bottom: 0.5rem;
+    }
+    .service-name { font-weight: 600; font-size: 1.05rem; color: #fff; margin-bottom: 0.7rem; }
+    .service-desc { font-size: 0.87rem; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+    /* ── CONTACT ── */
+    #contact { background: #fff; }
+    .contact-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+    }
+    .contact-info p {
+      font-size: 0.97rem; line-height: 1.8; color: #4a5568; margin-bottom: 2rem;
+    }
+    .contact-detail {
+      display: flex; align-items: flex-start; gap: 0.9rem; margin-bottom: 1.2rem;
+    }
+    .cd-icon {
+      width: 2.4rem; height: 2.4rem; border-radius: 10px; flex-shrink: 0;
+      background: rgba(201,116,143,0.12); display: flex; align-items: center;
+      justify-content: center; color: var(--rose); font-size: 1rem;
+    }
+    .cd-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+    .cd-value { font-size: 0.93rem; color: var(--navy); font-weight: 500; }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1.1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .form-group input, .form-group textarea {
+      padding: 0.85rem 1.1rem; border-radius: 10px;
+      border: 1.5px solid var(--smoke); background: var(--pearl);
+      font-family: 'Inter', sans-serif; font-size: 0.92rem; color: var(--navy);
+      transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--rose); box-shadow: 0 0 0 3px rgba(201,116,143,0.12);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-submit {
+      padding: 0.9rem 2.2rem; border-radius: 40px; border: none;
+      background: var(--rose); color: #fff; font-weight: 600;
+      font-size: 0.88rem; letter-spacing: 0.06em; text-transform: uppercase;
+      cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; align-self: flex-start;
+    }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,116,143,0.38); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy); padding: 2.5rem 5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .footer-name {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold); font-size: 1.1rem; font-weight: 600;
+    }
+    .footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.35); margin-top: 0.2rem; }
+    .footer-socials { display: flex; gap: 1rem; }
+    .social-btn {
+      width: 2.4rem; height: 2.4rem; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.18); display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.6); font-size: 0.85rem; text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .social-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(212,168,67,0.1); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      #hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 4rem; text-align: center; }
+      .hero-eyebrow { justify-content: center; }
+      .hero-cta-row { justify-content: center; }
+      .hero-tagline { margin-inline: auto; }
+      .hero-location { justify-content: center; }
+      #about { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 2.5rem; }
+      section { padding: 4rem 1.5rem; }
+      .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .flower-svg-wrap, .petal-rotate, .petal-reverse { animation: none; }
+    }
+  </style>
 </head>
 <body>
-    my name is anju rai.
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">Anju <span>Official</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-circle hbc1"></div>
+  <div class="hero-bg-circle hbc2"></div>
+
+  <div class="hero-text">
+    <div class="hero-eyebrow">Portfolio</div>
+    <h1 class="hero-name">
+      Anju Rai
+      <span class="aka">aka · Anju Official</span>
+    </h1>
+    <p class="hero-tagline">
+      Web designer &amp; data specialist crafting clean digital experiences and precise financial records from the heart of Morang.
+    </p>
+    <div class="hero-location">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      Belbari, Morang, Nepal
+    </div>
+    <div class="hero-cta-row">
+      <a href="#contact" class="btn-primary">Get in Touch</a>
+      <a href="#services" class="btn-outline">View Services</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="flower-frame">
+      <div class="flower-svg-wrap">
+        <svg viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="bg-grad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#1E2D3D"/>
+              <stop offset="100%" stop-color="#0D1B2A"/>
+            </radialGradient>
+            <radialGradient id="center-grad" cx="40%" cy="35%" r="60%">
+              <stop offset="0%" stop-color="#F7D08A"/>
+              <stop offset="100%" stop-color="#C9748F"/>
+            </radialGradient>
+            <radialGradient id="petal-grad1" cx="50%" cy="0%" r="100%">
+              <stop offset="0%" stop-color="#F0B8C8"/>
+              <stop offset="100%" stop-color="#C9748F" stop-opacity="0.7"/>
+            </radialGradient>
+            <radialGradient id="petal-grad2" cx="50%" cy="0%" r="100%">
+              <stop offset="0%" stop-color="#F7D9A0"/>
+              <stop offset="100%" stop-color="#D4A843" stop-opacity="0.65"/>
+            </radialGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <clipPath id="circle-clip">
+              <circle cx="180" cy="180" r="170"/>
+            </clipPath>
+          </defs>
+
+          <!-- background circle -->
+          <circle cx="180" cy="180" r="175" fill="url(#bg-grad)" stroke="rgba(212,168,67,0.35)" stroke-width="2"/>
+
+          <!-- outer petal ring (slow rotate) -->
+          <g class="petal-rotate" transform-origin="180 180">
+            <!-- 8 outer petals -->
+            <ellipse cx="180" cy="60" rx="20" ry="38" fill="url(#petal-grad1)" opacity="0.55" transform="rotate(0 180 180)"/>
+            <ellipse cx="180" cy="60" rx="20" ry="38" fill="url(#petal-grad1)" opacity="0.55" transform="rotate(45 180 180)"/>
+            <ellipse cx="180" cy="60" rx="20" ry="38" fill="url(#petal-grad1)" opacity="0.55" transform="rotate(90 180 180)"/>
+            <ellipse cx="180" cy="60" rx="20" ry="38" fill="url(#petal-grad1)" opacity="0.55" transform="rotate(135 180 180)"/>
+            <ellipse cx="180" cy="60" rx="20" ry="38" fill="url(#petal-grad1)" opacity="0.55" transform="rotate(180 180 180)"/>
+            <ellipse cx="180" cy="60" rx="20" ry="38" fill="url(#petal-grad1)" opacity="0.55" transform="rotate(225 180 180)"/>
+            <ellipse cx="180" cy="60" rx="20" ry="38" fill="url(#petal-grad1)" opacity="0.55" transform="rotate(270 180 180)"/>
+            <ellipse cx="180" cy="60" rx="20" ry="38" fill="url(#petal-grad1)" opacity="0.55" transform="rotate(315 180 180)"/>
+          </g>
+
+          <!-- mid petal ring (reverse rotate) -->
+          <g class="petal-reverse" transform-origin="180 180">
+            <ellipse cx="180" cy="88" rx="16" ry="56" fill="url(#petal-grad2)" opacity="0.75" transform="rotate(22.5 180 180)"/>
+            <ellipse cx="180" cy="88" rx="16" ry="56" fill="url(#petal-grad2)" opacity="0.75" transform="rotate(67.5 180 180)"/>
+            <ellipse cx="180" cy="88" rx="16" ry="56" fill="url(#petal-grad2)" opacity="0.75" transform="rotate(112.5 180 180)"/>
+            <ellipse cx="180" cy="88" rx="16" ry="56" fill="url(#petal-grad2)" opacity="0.75" transform="rotate(157.5 180 180)"/>
+            <ellipse cx="180" cy="88" rx="16" ry="56" fill="url(#petal-grad2)" opacity="0.75" transform="rotate(202.5 180 180)"/>
+            <ellipse cx="180" cy="88" rx="16" ry="56" fill="url(#petal-grad2)" opacity="0.75" transform="rotate(247.5 180 180)"/>
+            <ellipse cx="180" cy="88" rx="16" ry="56" fill="url(#petal-grad2)" opacity="0.75" transform="rotate(292.5 180 180)"/>
+            <ellipse cx="180" cy="88" rx="16" ry="56" fill="url(#petal-grad2)" opacity="0.75" transform="rotate(337.5 180 180)"/>
+          </g>
+
+          <!-- inner petals (static) -->
+          <g filter="url(#glow)">
+            <ellipse cx="180" cy="122" rx="13" ry="42" fill="#F0B8C8" opacity="0.9" transform="rotate(0 180 180)"/>
+            <ellipse cx="180" cy="122" rx="13" ry="42" fill="#F0B8C8" opacity="0.9" transform="rotate(60 180 180)"/>
+            <ellipse cx="180" cy="122" rx="13" ry="42" fill="#F0B8C8" opacity="0.9" transform="rotate(120 180 180)"/>
+            <ellipse cx="180" cy="122" rx="13" ry="42" fill="#F0B8C8" opacity="0.9" transform="rotate(180 180 180)"/>
+            <ellipse cx="180" cy="122" rx="13" ry="42" fill="#F0B8C8" opacity="0.9" transform="rotate(240 180 180)"/>
+            <ellipse cx="180" cy="122" rx="13" ry="42" fill="#F0B8C8" opacity="0.9" transform="rotate(300 180 180)"/>
+          </g>
+
+          <!-- center circle -->
+          <circle cx="180" cy="180" r="48" fill="url(#center-grad)" filter="url(#glow)"/>
+          <circle cx="180" cy="180" r="36" fill="#F7D08A" opacity="0.9"/>
+          <circle cx="180" cy="180" r="24" fill="#fff" opacity="0.95"/>
+
+          <!-- initials in center -->
+          <text x="180" y="188" text-anchor="middle" font-family="Playfair Display, serif"
+            font-size="22" font-weight="700" fill="#C9748F" letter-spacing="1">AR</text>
+
+          <!-- decorative dots ring -->
+          <g opacity="0.55">
+            <circle cx="180" cy="28"  r="3" fill="#D4A843"/>
+            <circle cx="230" cy="40"  r="2" fill="#C9748F"/>
+            <circle cx="267" cy="72"  r="2.5" fill="#D4A843"/>
+            <circle cx="332" cy="180" r="3" fill="#C9748F"/>
+            <circle cx="267" cy="288" r="2" fill="#D4A843"/>
+            <circle cx="93"  cy="288" r="2.5" fill="#C9748F"/>
+            <circle cx="28"  cy="180" r="3" fill="#D4A843"/>
+            <circle cx="93"  cy="72"  r="2" fill="#C9748F"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-flower-mini">
+    <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="130" cy="130" r="125" fill="#FFF5F7" stroke="rgba(201,116,143,0.2)" stroke-width="1.5"/>
+      <g opacity="0.7">
+        <ellipse cx="130" cy="58" rx="15" ry="40" fill="#F0B8C8" transform="rotate(0 130 130)"/>
+        <ellipse cx="130" cy="58" rx="15" ry="40" fill="#F7D9A0" transform="rotate(51.4 130 130)"/>
+        <ellipse cx="130" cy="58" rx="15" ry="40" fill="#F0B8C8" transform="rotate(102.8 130 130)"/>
+        <ellipse cx="130" cy="58" rx="15" ry="40" fill="#F7D9A0" transform="rotate(154.2 130 130)"/>
+        <ellipse cx="130" cy="58" rx="15" ry="40" fill="#F0B8C8" transform="rotate(205.6 130 130)"/>
+        <ellipse cx="130" cy="58" rx="15" ry="40" fill="#F7D9A0" transform="rotate(257 130 130)"/>
+        <ellipse cx="130" cy="58" rx="15" ry="40" fill="#F0B8C8" transform="rotate(308.4 130 130)"/>
+      </g>
+      <circle cx="130" cy="130" r="38" fill="#F7D08A" opacity="0.8"/>
+      <circle cx="130" cy="130" r="26" fill="#fff"/>
+      <text x="130" y="137" text-anchor="middle" font-family="Playfair Display, serif" font-size="16" font-weight="700" fill="#C9748F">AR</text>
+    </svg>
+  </div>
+  <div class="about-text">
+    <div class="section-label">About Me</div>
+    <h2 class="section-title">Crafting digital clarity, one pixel at a time.</h2>
+    <div class="divider"></div>
+    <p>Hello! I'm <strong>Anju Rai</strong>, a passionate web designer and data professional based in <strong>Belbari, Morang, Nepal</strong>. I blend creative visual sensibility with analytical precision — building websites that feel right, and maintaining financial records that are spotless.</p>
+    <p>Whether it's designing a compelling online presence, crunching numbers in Excel, or managing accounts in Tally, I bring the same level of care and attention to detail to everything I do.</p>
+    <div class="info-pills">
+      <span class="pill pill-rose">Web Designing</span>
+      <span class="pill pill-gold">Microsoft Excel</span>
+      <span class="pill pill-sage">Tally ERP</span>
+      <span class="pill pill-navy">📍 Belbari, Morang</span>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Expertise</div>
+  <h2 class="section-title">Skills &amp; Tools</h2>
+  <div class="divider"></div>
+  <div class="skills-grid">
+
+    <div class="skill-card">
+      <div class="skill-icon si-rose">🎨</div>
+      <div class="skill-name">Web Design</div>
+      <div class="skill-desc">Creating visually stunning, responsive websites with strong UX intuition and an eye for modern aesthetics.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon si-gold">📊</div>
+      <div class="skill-name">Microsoft Excel</div>
+      <div class="skill-desc">Advanced spreadsheet management — formulas, pivot tables, dashboards, data analysis, and automation.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:90%; background: var(--gold);"></div></div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon si-sage">🧾</div>
+      <div class="skill-name">Tally ERP</div>
+      <div class="skill-desc">Bookkeeping, GST/VAT filing, ledger management, payroll, and comprehensive financial reporting.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:88%; background: var(--sage);"></div></div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon si-navy">💻</div>
+      <div class="skill-name">HTML &amp; CSS</div>
+      <div class="skill-desc">Building semantic, accessible, and pixel-perfect layouts with clean, maintainable code.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%; background: var(--navy);"></div></div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon si-rose">🖼️</div>
+      <div class="skill-name">Canva &amp; Design Tools</div>
+      <div class="skill-desc">Crafting social media graphics, branding assets, and marketing materials with professional polish.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:82%"></div></div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon si-gold">📁</div>
+      <div class="skill-name">Data Management</div>
+      <div class="skill-desc">Organizing, cleaning, and maintaining structured data for business insights and record accuracy.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:87%; background: var(--gold);"></div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-label" style="color:var(--gold)">What I Offer</div>
+  <h2 class="section-title light">Services</h2>
+  <div class="divider" style="background:var(--rose)"></div>
+  <div class="services-grid">
+
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-name">Website Design</div>
+      <div class="service-desc">Modern, responsive website design tailored for businesses, portfolios, and personal brands. Clean UI with strong visual identity.</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-name">Excel Solutions</div>
+      <div class="service-desc">Custom Excel templates, automated reports, financial models, and data visualization dashboards for smarter decision-making.</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-name">Tally Accounting</div>
+      <div class="service-desc">Complete bookkeeping services, GST/VAT compliance, balance sheets, profit &amp; loss statements, and payroll management.</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-name">Data Entry &amp; Management</div>
+      <div class="service-desc">Accurate, fast data entry and database organization — transforming raw data into clean, actionable records.</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-name">Graphic Design</div>
+      <div class="service-desc">Logos, social media creatives, banners, and brand kits that communicate your identity with clarity and style.</div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <div class="service-name">Business Consultation</div>
+      <div class="service-desc">Guidance on digital presence, basic financial structuring, and workflow optimization for small and medium businesses.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <div class="section-label">Let's Connect</div>
+      <h2 class="section-title">Get in Touch</h2>
+      <div class="divider"></div>
+      <p>Whether you need a stunning website, precise Excel dashboards, or reliable Tally accounting support — I'd love to hear from you. Let's build something great together.</p>
+
+      <div class="contact-detail">
+        <div class="cd-icon">📍</div>
+        <div>
+          <div class="cd-label">Location</div>
+          <div class="cd-value">Belbari-5, Morang, Koshi Province, Nepal</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="cd-icon">✉️</div>
+        <div>
+          <div class="cd-label">Email</div>
+          <div class="cd-value">anjuofficial@gmail.com</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="cd-icon">📱</div>
+        <div>
+          <div class="cd-label">Available For</div>
+          <div class="cd-value">Freelance · Remote Work · Part-time</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="e.g. Ravi Sharma"/>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="you@example.com"/>
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <input type="text" placeholder="Web design, Excel, Tally…"/>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Tell me about your project or requirement…"></textarea>
+      </div>
+      <button class="form-submit">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-name">Anju Official</div>
+    <div class="footer-copy">© 2025 Anju Rai · Belbari, Morang, Nepal · All rights reserved.</div>
+  </div>
+  <div class="footer-socials">
+    <a class="social-btn" href="#" title="Facebook">f</a>
+    <a class="social-btn" href="#" title="LinkedIn">in</a>
+    <a class="social-btn" href="#" title="Instagram">✦</a>
+  </div>
+</footer>
+
+<script>
+  // Animate skill bars on scroll into view
+  const bars = document.querySelectorAll('.skill-bar');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.width = e.target.style.width; // trigger
+      }
+    });
+  }, { threshold: 0.2 });
+  bars.forEach(b => { const w = b.style.width; b.style.width = '0'; setTimeout(()=>{ observer.observe(b); b.style.width = w; }, 100); });
+
+  // Smooth contact form mock
+  document.querySelector('.form-submit').addEventListener('click', function() {
+    this.textContent = '✓ Message Sent!';
+    this.style.background = 'var(--sage)';
+    setTimeout(() => { this.textContent = 'Send Message →'; this.style.background = ''; }, 3000);
+  });
+</script>
 </body>
 </html>
